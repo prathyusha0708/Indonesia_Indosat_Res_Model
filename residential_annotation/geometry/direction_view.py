@@ -121,6 +121,12 @@ def mark_occluder(img: Image.Image, x: float, text: str, color: tuple = (255, 14
         font = ImageFont.load_default()
     ty = H - font_size - 20
     tx = max(4, min(W - 4, x + 8))
+    # Clamp by the text's own rendered WIDTH too, not just its start position --
+    # otherwise a label starting near the right edge draws past W and gets
+    # silently clipped by the image boundary (bug: produced unreadable/
+    # truncated building IDs and percentages in saved crops).
+    text_w = draw.textbbox((0, 0), text, font=font)[2]
+    tx = max(4, min(W - 4 - text_w, tx))
     bbox = draw.textbbox((tx, ty), text, font=font)
     draw.rectangle([bbox[0] - 4, bbox[1] - 4, bbox[2] + 4, bbox[3] + 4], fill=(0, 0, 0))
     draw.text((tx, ty), text, fill=color, font=font)
