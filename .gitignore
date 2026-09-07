@@ -1,0 +1,16 @@
+# Large source/derived data -- not committed, regenerable from scripts
+jakarta_buildings_2023_heights.geojson
+output_overture_backup/
+residential_annotation/outputs/panoramas/
+residential_annotation/outputs/crops/
+residential_annotation/outputs/*.csv
+residential_annotation/outputs/*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
